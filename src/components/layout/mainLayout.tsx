@@ -19,7 +19,7 @@ const items:MenuProps["items"]= [
           label:"add profile"
         },
           {
-            key:"00021",
+            key:"00022",
           label:"get profile"
         }
         ]
