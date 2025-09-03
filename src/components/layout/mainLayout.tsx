@@ -1,6 +1,7 @@
 import { Layout, Menu } from "antd";
 import type { MenuProps } from 'antd';
 import { Outlet } from "react-router-dom";
+import { adminSiderItems } from "../../routers/adminRouters";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -64,7 +65,7 @@ const MainLayout=()=>{
           }} >
           PH Uni
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSiderItems} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0, }}> </Header>
