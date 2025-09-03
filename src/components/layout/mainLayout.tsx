@@ -1,5 +1,6 @@
 import { Layout, Menu } from "antd";
 import type { MenuProps } from 'antd';
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -52,13 +53,21 @@ const MainLayout=()=>{
           console.log(collapsed, type);
         }}
       >
-        <div style={{color:"white", textAlign:"center",height:"4rem"}} >
+        <div style={{
+          color:"white", 
+          textAlign:"center",
+          height:"4rem",
+          display:"flex",
+          justifyItems:"center",
+          alignItems:"center",
+          padding:"20px"
+          }} >
           PH Uni
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, color:"white" }} >PH-UNI </Header>
+        <Header style={{ padding: 0, }}> </Header>
         <Content style={{ margin: '24px 16px 0' }}>
           <div
             style={{
@@ -67,7 +76,7 @@ const MainLayout=()=>{
              
             }}
           >
-            <h1>the main content should go there</h1>
+            <h1><Outlet/></h1>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
