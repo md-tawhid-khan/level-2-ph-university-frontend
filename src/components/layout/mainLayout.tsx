@@ -1,39 +1,14 @@
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import { adminPaths} from "../../routers/adminRouters";
-import { sideberItemsGenerator } from "../../utils/sidebarItemsGenerator";
+import { Sidebar } from "./sidebar";
 
-const { Header, Content, Footer, Sider } = Layout;
-
-
+const { Header, Content, Footer} = Layout;
 
 
 const MainLayout=()=>{
     return(
           <Layout style={{height:"100vh"}}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div style={{
-          color:"white", 
-          textAlign:"center",
-          height:"4rem",
-          display:"flex",
-          justifyItems:"center",
-          alignItems:"center",
-          padding:"20px"
-          }} >
-          PH Uni
-        </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sideberItemsGenerator(adminPaths)} />
-      </Sider>
+         <Sidebar/>
       <Layout>
         <Header style={{ padding: 0, }}> </Header>
         <Content style={{ margin: '24px 16px 0' }}>
@@ -47,9 +22,6 @@ const MainLayout=()=>{
             <h1><Outlet/></h1>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
