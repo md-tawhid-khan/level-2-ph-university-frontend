@@ -10,6 +10,8 @@ import { FacultyPaths } from "./facultyRouters";
 import { studentPaths } from "./studentRouters";
 
 
+
+
  const router=createBrowserRouter([
     {
     path:'/',
