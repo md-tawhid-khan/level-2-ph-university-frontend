@@ -1,45 +1,12 @@
 import { Layout, Menu } from "antd";
-import type { MenuProps } from 'antd';
 import { Outlet } from "react-router-dom";
-import { adminSiderItems } from "../../routers/adminRouters";
+import { adminPaths} from "../../routers/adminRouters";
+import { sideberItemsGenerator } from "../../utils/sidebarItemsGenerator";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 
-const items:MenuProps["items"]= [
-    {
-        key:"0001",
-        label:"Dashboard"
-    },
-    {
-        key:"0002",
-        label:"profile",
-        children:[
-          {
-            key:"00021",
-          label:"add profile"
-        },
-          {
-            key:"00022",
-          label:"get profile"
-        }
-        ]
-    },
-    {
-        key:"0003",
-        label:"userManagement",
-        children:[
-            {
-                key:"00001",
-                label:"create Admin"
-            },
-            {
-                key:"00002",
-                label:"create Student"
-            }
-        ]
-    }
-];
+
 
 const MainLayout=()=>{
     return(
@@ -65,7 +32,7 @@ const MainLayout=()=>{
           }} >
           PH Uni
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSiderItems} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sideberItemsGenerator(adminPaths)} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0, }}> </Header>
