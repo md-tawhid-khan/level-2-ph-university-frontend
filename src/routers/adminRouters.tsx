@@ -6,17 +6,14 @@ import CreateStudent from "../pages/admin/createStudent"
 import { NavLink } from "react-router-dom"
 
 
-type TRoutes={
-    path:string,
-    element:ReactNode
-}
+
 type TAdminSiderItem={
   key:string,
   label:ReactNode,
   children?:TAdminSiderItem[]
 }
 
-const adminPaths=[
+export const adminPaths=[
     {
      name:"Dashboard",
      path:"dashboard",
@@ -68,25 +65,3 @@ export const adminSiderItems=adminPaths.reduce((acc:TAdminSiderItem[],item)=>{
 
 
 
-// programatic way to create admin routes
-
-export const adminRoutes= adminPaths.reduce((acc:TRoutes[],item)=>{
-    
-    if(item.path && item.element){
-        acc.push({
-            path:item.path,
-            element:item.element,
-        })
-         
-    }
-   
-    if (item.children) {
-    item.children.forEach((child) => {
-      acc.push({
-        path:child.path,
-        element:child.element
-      })
-    })
-  }
-  return acc
-},[])
