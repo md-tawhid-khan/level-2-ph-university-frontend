@@ -1,5 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { useLoginMutation } from "../redux/features/auth/authApi"
+import { useAppDispatch } from "../redux/hook"
+import { setUser } from "../redux/features/auth/authSlice"
+import { jwtDecode } from "jwt-decode"
 
 type Inputs = {
   id: string
@@ -7,6 +10,8 @@ type Inputs = {
 }
 
 const Login=()=>{
+
+    const dispatch=useAppDispatch()
 
     const {
     register,
@@ -20,15 +25,21 @@ const Login=()=>{
     return <h1>loading -------------------</h1>
   }
 
-  console.log(data)
-  console.log(error)
+//   console.log(data)
+//   console.log(error)
 
-   const onSubmit: SubmitHandler<Inputs> = (data) => {
+   const onSubmit: SubmitHandler<Inputs> =async (data) => {
 
-    const {id,password}=data ;
-        login({
-            id,password
-        })
+    const userInfo={
+        id:data.id ,
+        password:data.password
+    }
+
+     const res = await login(userInfo).unwrap()
+     const decode=jwtDecode(res.data.accessToken)
+     console.log(decode)
+     dispatch(setUser({user:decode,token:res.data.accessToken}))
+     
 }
 
     return (
