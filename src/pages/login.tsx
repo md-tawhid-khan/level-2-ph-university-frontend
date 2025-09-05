@@ -3,6 +3,7 @@ import { useLoginMutation } from "../redux/features/auth/authApi"
 import { useAppDispatch } from "../redux/hook"
 import { setUser } from "../redux/features/auth/authSlice"
 import { jwtDecode } from "jwt-decode"
+import { useNavigate } from "react-router-dom"
 
 type Inputs = {
   id: string
@@ -12,6 +13,7 @@ type Inputs = {
 const Login=()=>{
 
     const dispatch=useAppDispatch()
+    const navigate=useNavigate()
 
     const {
     register,
@@ -37,9 +39,11 @@ const Login=()=>{
 
      const res = await login(userInfo).unwrap()
      const decode=jwtDecode(res.data.accessToken)
-     console.log(decode)
-     dispatch(setUser({user:decode,token:res.data.accessToken}))
      
+     dispatch(setUser({user:decode,token:res.data.accessToken})) 
+     
+     navigate(`/${decode.role}/dashboard`)
+
 }
 
     return (
