@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom"
 import type { ReactNode } from "react"
-import { useCurrentToken } from "../../redux/features/auth/authSlice"
 import { useAppSelector } from "../../redux/hook"
+import { selectCurrentToken } from "../../redux/features/auth/authSlice"
 
 
 export const ProtectedRoute=({children}:{children:ReactNode})=>{
- const token=useAppSelector(useCurrentToken)
+ const token=useAppSelector(selectCurrentToken)
  
 
  if(!token){

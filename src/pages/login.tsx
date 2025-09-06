@@ -52,6 +52,7 @@ const Login=()=>{
       
     } catch (error) {
      toast.error(" failed to login ",{id:toastId,duration:2000})
+    //  console.log(error)
     }
 
      

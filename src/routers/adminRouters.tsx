@@ -1,23 +1,28 @@
-import type { ReactNode } from "react"
+
+import AcademicSemester from "../pages/admin/academicManagement/academicSemester"
 import AdminDashboard from "../pages/admin/adminDashboard"
 import CreateAdmin from "../pages/admin/createAdmin"
 import CreateFaculty from "../pages/admin/createFaculty"
 import CreateStudent from "../pages/admin/createStudent"
-import { NavLink } from "react-router-dom"
 
 
 
-type TAdminSiderItem={
-  key:string,
-  label:ReactNode,
-  children?:TAdminSiderItem[]
-}
 
 export const adminPaths=[
     {
      name:"Dashboard",
      path:"dashboard",
      element:<AdminDashboard/>
+},
+{
+  name:"Academic Management",
+  children:[
+    {
+      name:"Academic Semester",
+      path:"academic-semester",
+      element:<AcademicSemester/>
+    }
+  ]
 },
 
    {
