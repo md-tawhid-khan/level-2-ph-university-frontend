@@ -6,15 +6,21 @@ const baseQuery=fetchBaseQuery({
         credentials:'include',
         prepareHeaders:(headers,{getState})=>{
            const token=(getState() as RootState).auth.token
-
            if(token){
             headers.set("authorization",token)
            }
+           return headers
         }
     })
 
+    const baseQueryWithRefreshToken=async(args , api , extraOption)=>{
+        const result=await baseQuery(args,api,extraOption)
+        console.log(result)
+       return result
+    }
+
 export const baseApi=createApi({
     reducerPath:"baseApi",
-    baseQuery:baseQuery,
+    baseQuery:baseQueryWithRefreshToken,
     endpoints:()=>({})
 })

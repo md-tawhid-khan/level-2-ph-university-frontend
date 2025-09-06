@@ -7,7 +7,8 @@ const AcademicSemester=()=>{
     console.log(data)
 
     
-    return <>
-    <h1>this is academicSemesterPage</h1></>
+    return <div>
+    <h1>this is academicSemesterPage</h1>
+    </div>
 }
-export default AcademicSemester
+export default AcademicSemester ;
