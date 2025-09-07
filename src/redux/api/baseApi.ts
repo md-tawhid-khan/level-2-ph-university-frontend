@@ -1,3 +1,4 @@
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 import { logOut, setUser } from "../features/auth/authSlice";
@@ -21,7 +22,9 @@ const baseQuery=fetchBaseQuery({
         let result=await baseQuery(args,api,extraOption)
 
         if(result.error?.status ===404){
-            toast.error("user not found")
+          
+            toast.error(result.error.data.message)
+           
         }
 
         if(result.error?.status === 401){
