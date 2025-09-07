@@ -5,6 +5,8 @@ import { setUser, type TUser } from "../redux/features/auth/authSlice"
 import { jwtDecode } from "jwt-decode"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { PHForm } from "../components/form/PHForm"
+import PHInput from "../components/form/PHInput"
 
 type Inputs = {
   id: string
@@ -32,49 +34,47 @@ const Login=()=>{
 //   console.log(error)
 
    const onSubmit: SubmitHandler<Inputs> =async (data) => {
+    
+    console.log(data)
+  //  const toastId= toast.loading("loading -------------")
 
-   const toastId= toast.loading("loading -------------")
+  //   const userInfo={
+  //       id:data.id ,
+  //       password:data.password
+  //   }
+  //   try {
+  //     const res = await login(userInfo).unwrap()
 
-    const userInfo={
-        id:data.id ,
-        password:data.password
-    }
-    try {
-      const res = await login(userInfo).unwrap()
-
-     const decode=jwtDecode(res.data.accessToken) as TUser
+  //    const decode=jwtDecode(res.data.accessToken) as TUser
      
-     dispatch(setUser({user:decode,token:res.data.accessToken})) 
+  //    dispatch(setUser({user:decode,token:res.data.accessToken})) 
      
-     navigate(`/${decode.role}/dashboard`)
+  //    navigate(`/${decode.role}/dashboard`)
    
-     toast.success("successful to log in",{id:toastId,duration:2000})
+  //    toast.success("successful to log in",{id:toastId,duration:2000})
       
-    } catch (error) {
-     toast.error(" failed to login ",{id:toastId,duration:2000})
-    //  console.log(error)
-    }
+  //   } catch (error) {
+  //    toast.error(" failed to login ",{id:toastId,duration:2000})
+  //   //  console.log(error)
+  //   }
 
      
 }
 
     return (
        
-    <form onSubmit={handleSubmit(onSubmit)} >
+    <PHForm onSubmit={onSubmit} >
        
-       <label>user Id</label>
 
-      <input  {...register("id")} />
+      <PHInput type="text" name="id" label="User Id : "></PHInput>
 
-      <label>password</label>
-
-      <input {...register("password", { required: true })} />
+      <PHInput type="text" name="password" label="password : "/>
      
-      {errors.password && <span>This field is required</span>}
+      
 
       <input type="submit" />
     
-    </form>
+    </PHForm>
     )
 }
 

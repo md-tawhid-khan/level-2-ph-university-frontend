@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 import { logOut, setUser } from "../features/auth/authSlice";
+import type { BaseQueryApi, BaseQueryFn, DefinitionType, FetchArgs } from "@reduxjs/toolkit/query";
 
 const baseQuery=fetchBaseQuery({ 
         baseUrl: 'http://localhost:4003/api/v1',
@@ -14,7 +15,8 @@ const baseQuery=fetchBaseQuery({
         }
     })
 
-    const baseQueryWithRefreshToken=async(args , api , extraOption)=>{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const baseQueryWithRefreshToken:BaseQueryFn<FetchArgs,BaseQueryApi,DefinitionType>=async(args , api , extraOption): Promise<any>=>{
         let result=await baseQuery(args,api,extraOption)
         if(result.error?.status === 401){
             console.log("sending refresh token")
@@ -44,7 +46,7 @@ const baseQuery=fetchBaseQuery({
 
         }
        return result
-    }
+    } 
 
 export const baseApi=createApi({
     reducerPath:"baseApi",
