@@ -3,12 +3,13 @@ import type { FieldValues, SubmitHandler } from "react-hook-form"
 import { PHForm } from "../../../components/form/PHForm"
 import { Button, Col, Flex } from "antd"
 import PHSelect from '../../../components/form/PHSelect';
+import { semesterOptions } from '../../../constantTs/semester';
+import { monthOptions } from '../../../constantTs/global';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { academicSemesterSchema } from '../../../schema/academicManagement.schema';
 
-const nameOptions=[
-    {value:'01',label:'autumn'},
-    {value:'02',label:'fall'},
-    {value:'03',label:'summer'}
-] ;
+
+
 
 const currentYear=new Date().getFullYear()
 const yearOptions=[0,1,2,3,4].map(number=>({
@@ -16,28 +17,35 @@ const yearOptions=[0,1,2,3,4].map(number=>({
     label:String(currentYear+number) ,
 }))
 
-console.log(yearOptions)
 
 const CreateAcademicSemester=()=>{
     const onSubmit : SubmitHandler<FieldValues>=(data)=>{
      
-      const name=nameOptions[Number(data.name)-1].label
+      const name=semesterOptions[Number(data.name)-1].label
 
         const semesterData={
             name,
-            code:data.name ,
-            year:data.year,
+            code:data?.name ,
+            year:data?.year,
+            startMonth:data?.startMonth,
+            endMonth:data?.endMonth,
         }
     
         console.log(semesterData)
+       
     }
+    
     return (
         <Flex  justify='center' align="center" >
         <Col span={6}>
-            <PHForm onSubmit={onSubmit}>
+            <PHForm onSubmit={onSubmit}
+           resolver={zodResolver(academicSemesterSchema)}
+             >
                 
-               <PHSelect label='semesterName' name="name" options={nameOptions}/>
+               <PHSelect label='semesterName' name="name" options={semesterOptions}/>
                <PHSelect label='semesterYear' name="year" options={yearOptions}/>
+                <PHSelect label='startMonth' name="startMonth" options={monthOptions}/>
+                <PHSelect label='endMonth' name="endMonth" options={monthOptions}/>
                 <Button htmlType="submit">submit</Button>
             </PHForm>
         </Col>

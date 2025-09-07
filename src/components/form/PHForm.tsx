@@ -1,15 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from "antd"
 import type { ReactNode } from "react"
-import { FormProvider, useForm,  type FieldValues, type SubmitHandler } from "react-hook-form"
+import { FormProvider, useForm,  type FieldValues,  type SubmitHandler, type UseFormProps } from "react-hook-form"
 
-type TFormProps={
-    onSubmit:SubmitHandler<FieldValues>,
-    children:ReactNode
-
+export type TFormConfig={
+  resolver?:any
 }
 
-export const PHForm=({onSubmit,children }:TFormProps)=>{
-    const methods=useForm()
+type TFormProps ={
+    onSubmit:SubmitHandler<FieldValues>,
+    children:ReactNode,
+} & TFormConfig
+
+export const PHForm=({onSubmit,children,resolver}:TFormProps)=>{
+   const formConfig:UseFormProps<FieldValues>={}
+
+   if(resolver){
+       formConfig['resolver']=resolver ;
+   }
+
+    const methods=useForm(formConfig)
 
     return (
   <FormProvider {...methods}>

@@ -15,7 +15,7 @@ const PHSelect=({label,name,options}:TPHSelect)=>{
       
         <Controller
        name={name}
-       render={({field})=>(
+       render={({field, fieldState:{error}})=>(
          <Form.Item label={label}> 
     <Select
       defaultValue="select semester"
@@ -24,6 +24,7 @@ const PHSelect=({label,name,options}:TPHSelect)=>{
       options={options}
       size="large"
     />
+    {error && <small style={{color:'red'}}>{error.message}</small>}
  </Form.Item>  
        )}
         />
