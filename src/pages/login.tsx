@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { PHForm } from "../components/form/PHForm"
 import PHInput from "../components/form/PHInput"
+import { Row } from "antd"
 
 type Inputs = {
   id: string
@@ -18,63 +19,57 @@ const Login=()=>{
     const dispatch=useAppDispatch()
     const navigate=useNavigate()
 
-    const {
-    register,
-    handleSubmit,
-     formState: { errors },
-  } = useForm<Inputs>()
 
-  const [login,{data,error,isLoading}]=useLoginMutation()
+  const [login,{isLoading}]=useLoginMutation()
 
   if(isLoading){
     return <h1>loading -------------------</h1>
   }
 
+  
 //   console.log(data)
 //   console.log(error)
 
    const onSubmit: SubmitHandler<Inputs> =async (data) => {
     
-    console.log(data)
-  //  const toastId= toast.loading("loading -------------")
+   const toastId= toast.loading("loading -------------")
 
-  //   const userInfo={
-  //       id:data.id ,
-  //       password:data.password
-  //   }
-  //   try {
-  //     const res = await login(userInfo).unwrap()
+    const userInfo={
+        id:data.id ,
+        password:data.password
+    }
+    try {
+      const res = await login(userInfo).unwrap()
 
-  //    const decode=jwtDecode(res.data.accessToken) as TUser
+     const decode=jwtDecode(res.data.accessToken) as TUser
      
-  //    dispatch(setUser({user:decode,token:res.data.accessToken})) 
+     dispatch(setUser({user:decode,token:res.data.accessToken})) 
      
-  //    navigate(`/${decode.role}/dashboard`)
+     navigate(`/${decode.role}/dashboard`)
    
-  //    toast.success("successful to log in",{id:toastId,duration:2000})
+     toast.success("successful to log in",{id:toastId,duration:2000})
       
-  //   } catch (error) {
-  //    toast.error(" failed to login ",{id:toastId,duration:2000})
-  //   //  console.log(error)
-  //   }
+    } catch (error) {
+     toast.error(" failed to login ",{id:toastId,duration:2000})
+    //  console.log(error)
+    }
 
      
 }
 
     return (
-       
+      <Row justify="center" align="middle" style={{height:'100vh'}} >
     <PHForm onSubmit={onSubmit} >
        
-
       <PHInput type="text" name="id" label="User Id : "></PHInput>
 
       <PHInput type="text" name="password" label="password : "/>
      
-      
-
       <input type="submit" />
     
     </PHForm>
+
+    </Row> 
     )
 }
 
