@@ -8,7 +8,7 @@ export type TTableData=Pick<TAcademicSemesterData,"_id"|"name"|"year"|"startMont
 
 const AcademicSemester=()=>{
    const [params,setParams]=useState([])
-    const  {data:semesterData}=useGetAcademicSemesterQuery(params)
+    const  {data:semesterData,isLoading,isFetching}=useGetAcademicSemesterQuery(params)
 
     const paramsYear=new Date().getFullYear()
     
@@ -121,9 +121,11 @@ const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorte
   }
 };
 
-    
+    if(isLoading){
+      return <h1>loading ---------------</h1>
+    }
     return <div>
-   <Table<TTableData> columns={columns} dataSource={tableData} onChange={onChange} />
+   <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />
     </div>
 }
 export default AcademicSemester ;
