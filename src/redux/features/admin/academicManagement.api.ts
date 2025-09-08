@@ -1,4 +1,4 @@
-import type { TQueryParams, TResponseRedux } from "../../../types"
+import type { TAcademicFaculty, TQueryParams, TResponseRedux } from "../../../types"
 import type { TAcademicSemesterData } from "../../../types/academicManagement.type"
 import { baseApi } from "../../api/baseApi"
 
@@ -29,9 +29,44 @@ const academicManagementApi=baseApi.injectEndpoints({
             }
            }
        }),
+
        addAcademicSemester:builder.mutation({
        query:(data)=>({
         url:"/academic-semesters/create-academic-semester",
+          method:"POST",
+          body:data
+       })    
+       }),
+
+        getAcademicFaculty:builder.query({
+       query:(args)=>{
+
+         const params=new URLSearchParams()
+         if(args){
+            args.forEach((item:TQueryParams) => {
+                params.append(item.name,item.value as string)
+            });        
+         }
+
+        return {
+             url:"academic-faculties",
+          method:"GET",
+          params: params
+         }
+       
+       },
+       transformResponse:(response:TResponseRedux<TAcademicFaculty[]>)=>{
+           
+            return {
+               data:response.data,
+               meta:response.meta,
+            }
+           }
+       }),
+
+       addAcademicFaculty:builder.mutation({
+       query:(data)=>({
+        url:"/academic-faculties/create-academic-faculty",
           method:"POST",
           body:data
        })    
@@ -39,4 +74,7 @@ const academicManagementApi=baseApi.injectEndpoints({
     }),
 })
 
-export const {useGetAcademicSemesterQuery,useAddAcademicSemesterMutation}=academicManagementApi
+export const {useGetAcademicSemesterQuery,
+   useAddAcademicSemesterMutation,
+useAddAcademicFacultyMutation,
+useGetAcademicFacultyQuery,}=academicManagementApi

@@ -18,7 +18,7 @@ export const PHForm=({onSubmit,children,resolver}:TFormProps)=>{
    if(resolver){
        formConfig['resolver']=resolver ;
    }
-
+     
     const methods=useForm(formConfig)
 
     return (

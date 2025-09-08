@@ -17,6 +17,10 @@ export type TMeta={
     totalPage:number
 }
 
+export type TAcademicFaculty={
+    _id:string,
+    name:string
+}
 
 
 export type TResponse<T>={
@@ -33,3 +37,4 @@ export type TQueryParams={
     name:string,
     value:boolean|React.Key,
 }
+

@@ -6,3 +6,7 @@ export const academicSemesterSchema=z.object({
         startMonth:z.string({message:'please select a month'}),
         endMonth:z.string({message:'please select a month'})
     })
+
+    export const academicFacultySchema=z.object({
+        name:z.string({message:"please insert academic faculty name"})
+    })
