@@ -1,15 +1,17 @@
 import { Table, type TableColumnsType, type TableProps } from "antd";
 import { useGetAcademicSemesterQuery } from "../../../redux/features/admin/academicManagement.api";
 import type { TAcademicSemesterData } from "../../../types/academicManagement.type";
+import { useState } from "react";
 
 export type TTableData=Pick<TAcademicSemesterData,"_id"|"name"|"year"|"startMonth"|"endMonth">
 
 
 const AcademicSemester=()=>{
+   const [params,setParams]=useState([])
+    const  {data:semesterData}=useGetAcademicSemesterQuery(params)
 
-    const  {data:semesterData}=useGetAcademicSemesterQuery([{name:"name",value:"fall"}])
-
-    // console.log(semesterData)
+    const paramsYear=new Date().getFullYear()
+    
 
    const tableData = semesterData?.data?.map(({_id,startMonth,endMonth,year,name})=>({
       _id,name,startMonth,endMonth,year
@@ -21,16 +23,16 @@ const AcademicSemester=()=>{
     dataIndex: 'name',
     filters: [
       {
-        text: 'Joe',
-        value: 'Joe',
+        text: 'Autumn',
+        value: 'autumn',
       },
       {
-        text: 'Category 1',
-        value: 'Category 1',
+        text: 'Fall',
+        value: 'fall',
       },
       {
-        text: 'Category 2',
-        value: 'Category 2',
+        text: 'Summer',
+        value: 'summer',
       
       },
     ],
@@ -42,7 +44,30 @@ const AcademicSemester=()=>{
   {
     title: 'Year',
     dataIndex: 'year',
-    
+     filters: [
+      {
+        text: paramsYear,
+        value: paramsYear,
+      },
+      {
+        text: (paramsYear+1),
+        value: (paramsYear+1),
+      },
+      {
+        text: (paramsYear+2),
+        value: (paramsYear+2),
+      },
+      {
+        text:(paramsYear+3),
+        value:(paramsYear+3),
+      
+      },
+      {
+        text: (paramsYear+4),
+        value:(paramsYear+4),
+      
+      },
+    ],
   },
   {
     title: 'Start Month',
@@ -83,7 +108,17 @@ const AcademicSemester=()=>{
 // ];
 
 const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
+  if(extra.action==="filter"){
+    const paramsQuery=[]
+    filters.name?.forEach(item=>(
+      paramsQuery.push({name:'name',value:item})
+    ))
+    filters.year?.forEach(item=>(
+      paramsQuery.push({name:'year',value:item})
+    ))
+
+   setParams(paramsQuery)
+  }
 };
 
     
