@@ -2,19 +2,24 @@ import { Table, type TableColumnsType, type TableProps } from "antd";
 import { useGetAcademicSemesterQuery } from "../../../redux/features/admin/academicManagement.api";
 import type { TAcademicSemesterData } from "../../../types/academicManagement.type";
 import { useState } from "react";
+import type { TQueryParams } from "../../../types";
 
-export type TTableData=Pick<TAcademicSemesterData,"_id"|"name"|"year"|"startMonth"|"endMonth">
+export type TTableData=Pick<TAcademicSemesterData,"name"|"year"|"startMonth"|"endMonth">
 
 
 const AcademicSemester=()=>{
-   const [params,setParams]=useState([])
+   const [params,setParams]=useState<TQueryParams[]>([])
     const  {data:semesterData,isLoading,isFetching}=useGetAcademicSemesterQuery(params)
 
     const paramsYear=new Date().getFullYear()
     
 
    const tableData = semesterData?.data?.map(({_id,startMonth,endMonth,year,name})=>({
-      _id,name,startMonth,endMonth,year
+     key:_id,
+     name,
+     startMonth,
+     endMonth,
+     year
     }))
 
     const columns: TableColumnsType<TTableData> = [
@@ -47,24 +52,24 @@ const AcademicSemester=()=>{
      filters: [
       {
         text: paramsYear,
-        value: paramsYear,
+        value: (paramsYear).toString(),
       },
       {
         text: (paramsYear+1),
-        value: (paramsYear+1),
+        value: (paramsYear+1).toString(),
       },
       {
         text: (paramsYear+2),
-        value: (paramsYear+2),
+        value: (paramsYear+2).toString(),
       },
       {
         text:(paramsYear+3),
-        value:(paramsYear+3),
+        value:(paramsYear+3).toString(),
       
       },
       {
         text: (paramsYear+4),
-        value:(paramsYear+4),
+        value:(paramsYear+4).toString(),
       
       },
     ],
@@ -107,9 +112,9 @@ const AcademicSemester=()=>{
 //   },
 // ];
 
-const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
+const onChange: TableProps<TTableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
   if(extra.action==="filter"){
-    const paramsQuery=[]
+    const paramsQuery:TQueryParams[]=[]
     filters.name?.forEach(item=>(
       paramsQuery.push({name:'name',value:item})
     ))
@@ -117,12 +122,12 @@ const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorte
       paramsQuery.push({name:'year',value:item})
     ))
 
-   setParams(paramsQuery)
+   setParams(paramsQuery) 
   }
 };
 
     if(isLoading){
-      return <h1>loading ---------------</h1>
+      return (<div> <h1>loading ---------------</h1> </div>)
     }
     return <div>
    <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />
