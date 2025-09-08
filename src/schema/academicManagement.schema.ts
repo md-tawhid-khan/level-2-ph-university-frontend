@@ -8,5 +8,10 @@ export const academicSemesterSchema=z.object({
     })
 
     export const academicFacultySchema=z.object({
-        name:z.string({message:"please insert academic faculty name"})
+        name:z.string({message:"please insert academic faculty name"}),
+    })
+
+    export const academicDepartmentSchema=z.object({
+        name:z.string({message:"please give department name"}),
+        academicFaculty:z.string({message:"please give academic faculty name"})
     })

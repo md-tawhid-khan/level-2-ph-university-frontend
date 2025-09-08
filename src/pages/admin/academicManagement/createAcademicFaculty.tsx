@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { academicFacultySchema } from "../../../schema/academicManagement.schema"
 import type {  FieldValues, SubmitHandler } from "react-hook-form"
 import { toast } from "sonner"
-import type { TAcademicFaculty, TResponse } from "../../../types"
+import type {  TResponse } from "../../../types"
+import type { TAcademicFaculty } from "../../../types/academicManagement.type"
 
 const CreateAcademicFaculty=()=>{
           const [addAcademicFaculty,]=useAddAcademicFacultyMutation()
