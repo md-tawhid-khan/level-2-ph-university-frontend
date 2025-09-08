@@ -7,7 +7,7 @@ export type TTableData=Pick<TAcademicSemesterData,"_id"|"name"|"year"|"startMont
 
 const AcademicSemester=()=>{
 
-    const  {data:semesterData}=useGetAcademicSemesterQuery(undefined)
+    const  {data:semesterData}=useGetAcademicSemesterQuery([{name:"name",value:"fall"}])
 
     // console.log(semesterData)
 
