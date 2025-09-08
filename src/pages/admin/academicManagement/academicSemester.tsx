@@ -12,11 +12,11 @@ interface DataType {
 
 const AcademicSemester=()=>{
 
-    const  {data:semesterData}=useGetAcademicSemesterQuery(undefined)
+    const  {data:semesterData,isLoading}=useGetAcademicSemesterQuery(undefined)
 
     // console.log(semesterData)
 
-   const tableData = semesterData?.data.map(({_id,startMonth,endMonth,year,name})=>({
+   const tableData = semesterData?.data?.map(({_id,startMonth,endMonth,year,name})=>({
       _id,name,startMonth,endMonth,year
     }))
 
