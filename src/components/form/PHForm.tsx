@@ -10,9 +10,10 @@ export type TFormConfig={
 type TFormProps ={
     onSubmit:SubmitHandler<FieldValues>,
     children:ReactNode,
+    
 } & TFormConfig
 
-export const PHForm=({onSubmit,children,resolver}:TFormProps)=>{
+export const PHForm=({onSubmit,children,resolver,}:TFormProps)=>{
    const formConfig:UseFormProps<FieldValues>={}
 
    if(resolver){
@@ -20,7 +21,8 @@ export const PHForm=({onSubmit,children,resolver}:TFormProps)=>{
    }
      
     const methods=useForm(formConfig)
-
+    
+  
     const submit:SubmitHandler<FieldValues>=(data)=>{
       onSubmit(data)
       methods.reset()

@@ -1,16 +1,16 @@
 import { Form, Select, } from "antd"
-import { Controller } from "react-hook-form";
+import { Controller,  } from "react-hook-form";
 
 type TPHSelect={
     label:string ;
     name:string ;
-    options?:{value:string,label:string,disabled?:boolean}[]
-
+    options?:{value:string,label:string,disabled?:boolean}[];
+    disabled?:boolean ;
+ 
 }
 
-const PHSelect=({label,name,options}:TPHSelect)=>{
-      
- 
+const PHSelect=({label,name,options,disabled}:TPHSelect)=>{
+   
     return (
       
         <Controller
@@ -18,7 +18,8 @@ const PHSelect=({label,name,options}:TPHSelect)=>{
        render={({field, fieldState:{error}})=>(
          <Form.Item label={label}> 
     <Select
-      defaultValue="select semester"
+      defaultValue="select"
+      disabled={disabled}
       style={{ width: "100%" }}
       {...field}
       options={options}
@@ -28,9 +29,7 @@ const PHSelect=({label,name,options}:TPHSelect)=>{
  </Form.Item>  
        )}
         />
-        
-     
-
+ 
     )
 }
 export default PHSelect

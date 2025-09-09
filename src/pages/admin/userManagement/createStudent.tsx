@@ -1,10 +1,12 @@
 import { Button, Col, Divider, Row } from "antd";
 import { PHForm } from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
-import type { FieldValues, SubmitHandler } from "react-hook-form";
+import {  type FieldValues, type SubmitHandler } from "react-hook-form";
 import PHSelect from "../../../components/form/PHSelect";
 import { genderOptions } from "../../../constantTs/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
+import { useGetAcademicDepartmentQuery, useGetAcademicFacultyQuery, useGetAcademicSemesterQuery } from "../../../redux/features/admin/academicManagement.api";
+
 
 const studentDummyData={
   "password":"student12345",
@@ -41,24 +43,51 @@ const studentDummyData={
   }
   }
 
-
 const CreateStudent =()=>{
-
+   
  
+  const {data:semesterData,isLoading:SLoading}=useGetAcademicSemesterQuery(undefined)
+ 
+  const {data:facultyData,isLoading:Floading}=useGetAcademicFacultyQuery(undefined)
 
+    const facultyOptions=facultyData?.data!.map(item=>({
+      label:item.name,
+      value:item._id
+    }))
+
+    
+
+  const {data:academicDepartment,isLoading:DLoading}=useGetAcademicDepartmentQuery(undefined,{skip:Floading})
+   
+ 
+ console.log({academicDepartment})
+
+  const departmentOptions=academicDepartment?.data!.map(item=>({
+    label:item.name,
+    value:item._id,
+  }))
+
+  
+
+  const semesterOptions=semesterData?.data!.map(item=>({
+    label:`${item.name} ${item.year}`,
+    value:item._id
+  }))
+
+  
   const onSubmit:SubmitHandler<FieldValues>=(data)=>{
-       console.log(data)
 
-      // const formData=new FormData()
-      //      formData.append('data',JSON.stringify(data))
+      const formData=new FormData()
+           formData.append('data',JSON.stringify(data))
 
            //! this is development
            // just for checking
-      //  console.log(Object.fromEntries(formData))
+       console.log(Object.fromEntries(formData))
   }
 
+
  return <div>
-   <PHForm onSubmit={onSubmit}>
+   <PHForm onSubmit={onSubmit} >
     <Divider> Personal information </Divider>
     <Row gutter={8}>
       <Col span={24} md={{span:12}} lg={{span:8}}>
@@ -130,16 +159,24 @@ const CreateStudent =()=>{
     </Col>
 
     </Row>
+
     <Divider>  academic information </Divider>
     <Row gutter={8}>
       <Col span={24} md={{span:12}} lg={{span:8}}>
-    <PHInput type="text" name="academicFaculty" label="academicFaculty"></PHInput>
+    <PHSelect  name="academicFaculty" label="academicFaculty" options={facultyOptions}></PHSelect>
     </Col>
       <Col span={24} md={{span:12}} lg={{span:8}}>
-    <PHInput type="text" name="academicDepartment" label="academicDepartment"></PHInput>
+    <PHSelect  name="academicDepartment"
+     label="academicDepartment"
+     disabled={DLoading}
+     options={departmentOptions}></PHSelect>
     </Col>
     <Col span={24} md={{span:12}} lg={{span:8}}>
-    <PHInput type="text" name="admissionSemester" label="admissionSemester"></PHInput>
+    <PHSelect 
+     name="admissionSemester" 
+     disabled={SLoading} 
+     label="admissionSemester" 
+     options={semesterOptions}></PHSelect>
     </Col>
     </Row>
     <Button htmlType="submit">submit</Button>
