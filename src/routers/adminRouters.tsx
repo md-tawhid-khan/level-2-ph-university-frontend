@@ -5,10 +5,10 @@ import AcademicSemester from "../pages/admin/academicManagement/academicSemester
 import CreateAcademicDepartment from "../pages/admin/academicManagement/createAcademicDepartment"
 import CreateAcademicFaculty from "../pages/admin/academicManagement/createAcademicFaculty"
 import CreateAcademicSemester from "../pages/admin/academicManagement/createAcademicSemester"
-import AdminDashboard from "../pages/admin/adminDashboard"
-import CreateAdmin from "../pages/admin/createAdmin"
-import CreateFaculty from "../pages/admin/createFaculty"
-import CreateStudent from "../pages/admin/createStudent"
+import AdminDashboard from "../pages/admin/userManagement/adminDashboard"
+import CreateAdmin from "../pages/admin/userManagement/createAdmin"
+import CreateFaculty from "../pages/admin/userManagement/createFaculty"
+import CreateStudent from "../pages/admin/userManagement/createStudent"
 
 
 
