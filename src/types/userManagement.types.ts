@@ -43,3 +43,28 @@ export type TStudent = {
   createAt: Date;
   updateAt: Date;
 };
+
+export type TFacultyName = {
+  firstName: string
+  middleName: string
+  lastName: string
+}
+
+export type TFaculty = {
+  name: TFacultyName;
+  id:string;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  presentAddress: string;
+  permanentAddress: string;
+  designation: string;
+  profileImage: string;
+  academicDepartment: string;
+  isDelete: boolean;
+  fullName:string;
+  _id:string ;
+}
+

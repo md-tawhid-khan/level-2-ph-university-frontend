@@ -28,6 +28,7 @@ export const StudentDetails=()=>{
                <h3>academicDepartment:{studentData.data.academicDepartment.
 name}</h3>
                  <h3>admissionSemester:{studentData.data.admissionSemester.name}</h3>
+           
                  
             </div>
         </div>

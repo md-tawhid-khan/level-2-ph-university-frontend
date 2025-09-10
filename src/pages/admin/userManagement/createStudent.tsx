@@ -7,62 +7,18 @@ import { genderOptions } from "../../../constantTs/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import {
   useGetAcademicDepartmentQuery,
-  useGetAcademicFacultyQuery,
   useGetAcademicSemesterQuery,
 } from "../../../redux/features/admin/academicManagement.api";
 import { useAddStudentUserMutation } from "../../../redux/features/admin/userManagement.api";
 
-const studentDummyData = {
-  password: "student12345",
-  student: {
-    name: {
-      firstName: "Muhammad",
-      middleName: "Tawhid",
-      lastName: "khan",
-    },
-    gender: "male",
-    dateOfBirth: "1998-10-07",
-    guardian: {
-      name: "sojib",
-      relationWithStudent: "brother",
-      ocupation: "student",
-      contactNo: "017397938475948769",
-    },
-    localGuardian: {
-      name: "sojib",
-      relationWithStudent: "brother",
-      ocupation: "student",
-      contactNo: "017397938475948769",
-    },
-
-    email: "tawhidkhan19982@gmail.com",
-    contactNo: "01738269414",
-    emergencyContactNo: "o1960204151",
-    presentAddress: "mithapukur, rangpur",
-    permanentAddress: "mithapukur, rangpur",
-
-    academicDepartment: "68ade4960b59fbf8871cf5d0",
-    admissionSemester: "68ade7409797f505fd8b3d1c",
-    isDelete: false,
-  },
-};
 
 const CreateStudent = () => {
   const { data: semesterData, isLoading: SLoading } =
     useGetAcademicSemesterQuery(undefined);
-
-  const { data: facultyData, isLoading: Floading } =
-    useGetAcademicFacultyQuery(undefined);
-
-  const facultyOptions = facultyData?.data!.map((item) => ({
-    label: item.name,
-    value: item._id,
-  }));
-
   const { data: academicDepartment, isLoading: DLoading } =
-    useGetAcademicDepartmentQuery(undefined, { skip: Floading });
+    useGetAcademicDepartmentQuery(undefined, { skip: SLoading });
 
-  const [addStudent] = useAddStudentUserMutation();
+  const [addStudent,{isLoading}] = useAddStudentUserMutation();
 
   const departmentOptions = academicDepartment?.data!.map((item) => ({
     label: item.name,
@@ -80,7 +36,7 @@ const CreateStudent = () => {
       student: data,
     };
 
-    //  console.log({studentData})
+     console.log({studentData}) 
 
     const formData = new FormData();
     formData?.append("data", JSON.stringify(studentData));
@@ -93,6 +49,12 @@ const CreateStudent = () => {
     // just for checking
     //  console.log(Object.fromEntries(formData))
   };
+ 
+  if(isLoading){
+    return (<div>
+      <h1>loading ------------------</h1>
+    </div>)
+  }
 
   return (
     <div>
