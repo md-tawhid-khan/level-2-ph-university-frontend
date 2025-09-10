@@ -9,7 +9,7 @@ export type TSiderItem={
   key:string,
   label:ReactNode,
   children?:TSiderItem[]
-}
+} | undefined
 
  export type TUserRouter={
     name:string,

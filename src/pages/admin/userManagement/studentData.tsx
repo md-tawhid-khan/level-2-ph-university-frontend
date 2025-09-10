@@ -2,8 +2,9 @@ import { Button, Pagination, Space, Table, type TableColumnsType, type TableProp
 import { useState } from "react";
 import type { TQueryParams, TStudent } from "../../../types";
 import { useGetStudentDataQuery } from "../../../redux/features/admin/userManagement.api";
+import { Link } from "react-router-dom";
 
-export type TTableData=Pick<TStudent,"fullName"|"id">
+export type TTableData=Pick<TStudent,"fullName"|"id"|"email"|"contactNo">
 
 
 const StudentData=()=>{
@@ -14,10 +15,12 @@ const StudentData=()=>{
             {name:"page",value:page},
             {name:"sort",value:'id'} ,...params])
 
-   const tableData = studentData?.data!.map(({_id,id,fullName})=>({
+   const tableData = studentData?.data!.map(({_id,id,fullName,email,contactNo})=>({
      key:_id,
      id,
-     fullName
+     fullName,
+     email,
+     contactNo
     }))
 
     const metaData=studentData?.meta ;
@@ -29,16 +32,25 @@ const StudentData=()=>{
   },
   {
     title: 'student Id',
-    dataIndex: 'id',
-     
+    dataIndex: 'id',   
+  },
+  {
+    title: 'email',
+    dataIndex: 'email',   
+  },
+  {
+    title: 'contact no',
+    dataIndex: 'contactNo',   
   },
   
   {
     title: 'Action',
     key: 'x',
-    render:()=>{
+    render:(item)=>{    
       return <Space>
+        <Link to={`/admin/students-data/${item.key}`}>
         <Button>details</Button>
+        </Link>       
         <Button>update</Button>
         <Button>block</Button>
       </Space>

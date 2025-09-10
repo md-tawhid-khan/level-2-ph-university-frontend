@@ -14,10 +14,13 @@ export const sideberItemsGenerator=(items:TUserRouter[],role:string)=>{
        acc.push({
         key:item.name,
         label:item.name,
-        children:item.children.map(child=>({
+        children:item?.children.map(child=>{
+          if(child?.name){
+            return{
           key:child.name,
           label:<NavLink to={`/${role}/${child.path}`}>{child.name}</NavLink>
-        }))
+            }
+        }})
        })
       }
       return acc 

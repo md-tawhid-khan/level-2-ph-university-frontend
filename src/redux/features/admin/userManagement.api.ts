@@ -29,6 +29,13 @@ const userManagementApi=baseApi.injectEndpoints({
                    }
                }),
 
+        getSpecificStudentUser:builder.query({
+            query:(name)=>({
+              url:`/students/${name}`,
+              method:'GET',
+            })
+        }),
+
         addStudentUser:builder.mutation({
             query:(data)=>({
               url:'/users/create-user-student',
@@ -39,4 +46,6 @@ const userManagementApi=baseApi.injectEndpoints({
     })
 })
 
-export const {useGetStudentDataQuery,useAddStudentUserMutation}=userManagementApi
+export const {useGetStudentDataQuery,
+    useGetSpecificStudentUserQuery,
+    useAddStudentUserMutation}=userManagementApi
