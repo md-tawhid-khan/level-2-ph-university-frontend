@@ -1,7 +1,7 @@
-import { Button, Col, Divider, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import { PHForm } from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
-import { type FieldValues, type SubmitHandler } from "react-hook-form";
+import { Controller, type FieldValues, type SubmitHandler } from "react-hook-form";
 import PHSelect from "../../../components/form/PHSelect";
 import { genderOptions } from "../../../constantTs/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
@@ -80,17 +80,18 @@ const CreateStudent = () => {
       student: data,
     };
 
-     console.log({studentData})
+    //  console.log({studentData})
 
     const formData = new FormData();
     formData?.append("data", JSON.stringify(studentData));
+    formData?.append('file',data.profileImage)
     
     const res = await addStudent(formData);
     console.log({ res });
 
     //! this is development
     // just for checking
-     console.log(Object.fromEntries(formData))
+    //  console.log(Object.fromEntries(formData))
   };
 
   return (
@@ -125,6 +126,19 @@ const CreateStudent = () => {
               name="gender"
               options={genderOptions}
             ></PHSelect>
+          </Col>
+          <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+            <Controller
+            name="profileImage"
+            render={({field:{onChange,value,...field}})=>(
+              <Form.Item label='picture'>
+              <Input type="file"
+              {...field}
+             value={value?.fileName}
+              onChange={(e)=>{onChange(e.target.files?.[0])}} />
+              </Form.Item>
+            )}
+            />
           </Col>
           <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
             <PHDatePicker name="dateOfBirth" label="dateOfBirth"></PHDatePicker>
