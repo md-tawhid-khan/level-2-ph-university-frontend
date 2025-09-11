@@ -1,8 +1,9 @@
-import { Button, Table, type TableColumnsType, type TableProps } from "antd";
+import { Button, Table, Tag, type TableColumnsType, type TableProps } from "antd";
 import { useState } from "react";
 import type { TQueryParams, TRegisteredSemester } from "../../../types";
 import { useGetRegisteredSemesterDataQuery } from "../../../redux/features/admin/courseManagement.api";
 import moment from "moment";
+import { createPath } from "react-router-dom";
 
 export type TTableData=Pick<TRegisteredSemester,"name"|"status"|"startDate"|"endDate">
 
@@ -32,6 +33,19 @@ const RegisteredSemester=()=>{
   {
     title: 'status',
     dataIndex: 'status',
+    render:(item)=>{
+        let color ;
+        if(item==='UPCOMING'){
+           color='blue' ;
+        }
+        if(item==='ONGOING'){
+              color='green' ;
+        }
+        if(item==='END'){
+              color='red' ;
+        }
+        return <Tag color={color}>{item}</Tag>
+    }
   },
   {
     title: 'Start Date',
