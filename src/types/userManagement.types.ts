@@ -91,3 +91,11 @@ export type TAdmin = {
   _id:string ;
 }
 
+export type TCourse={
+  _id:string,
+  title:string,
+  prefix:string,
+  code:string,
+  credits:string,
+  preRequisiteCourse:Array<T>
+}
