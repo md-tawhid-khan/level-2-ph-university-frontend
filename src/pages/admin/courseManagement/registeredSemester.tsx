@@ -2,6 +2,7 @@ import { Button, Table, type TableColumnsType, type TableProps } from "antd";
 import { useState } from "react";
 import type { TQueryParams, TRegisteredSemester } from "../../../types";
 import { useGetRegisteredSemesterDataQuery } from "../../../redux/features/admin/courseManagement.api";
+import moment from "moment";
 
 export type TTableData=Pick<TRegisteredSemester,"name"|"status"|"startDate"|"endDate">
 
@@ -17,8 +18,8 @@ const RegisteredSemester=()=>{
    const tableData = semesterData?.data?.map(({_id,startDate,endDate,status,academicSemester})=>({
      key:_id,
      name:academicSemester.name,
-     startDate:startDate,
-     endDate:endDate,
+     startDate:moment(new Date(startDate)).format('MMMM') ,
+     endDate:moment(new Date(endDate)).format('MMMM'),
      status:status,
     }))
 
