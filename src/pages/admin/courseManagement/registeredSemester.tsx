@@ -1,12 +1,31 @@
-import { Button, Table, Tag, type TableColumnsType, type TableProps } from "antd";
+import { Button, Dropdown, Table, Tag, type MenuProps, type TableColumnsType, type TableProps } from "antd";
 import { useState } from "react";
 import type { TQueryParams, TRegisteredSemester } from "../../../types";
 import { useGetRegisteredSemesterDataQuery } from "../../../redux/features/admin/courseManagement.api";
 import moment from "moment";
-import { createPath } from "react-router-dom";
+
 
 export type TTableData=Pick<TRegisteredSemester,"name"|"status"|"startDate"|"endDate">
 
+
+const items: MenuProps['items'] = [
+  {
+    label: 'UPCOMING',
+    key: 'UPCOMING',
+    
+  },
+  {
+    label: 'ONGOING',
+    key: 'ONGOING',
+    
+  },
+  {
+    label: 'ENDED',
+    key: 'ENDED',
+
+  },
+  
+];
 
 const RegisteredSemester=()=>{
 
@@ -23,6 +42,15 @@ const RegisteredSemester=()=>{
      endDate:moment(new Date(endDate)).format('MMMM'),
      status:status,
     }))
+
+const handleStatusDropdown=(data)=>{
+    console.log(data)
+}
+
+    const menuProps = {
+  items,
+  onClick: handleStatusDropdown,
+};
 
     const columns: TableColumnsType<TTableData> = [
   {
@@ -61,7 +89,9 @@ const RegisteredSemester=()=>{
     key: 'x',
     render:()=>{
       return <div>
+        <Dropdown menu={menuProps} >
         <Button>update</Button>
+        </Dropdown>
       </div>
     }    
   },
