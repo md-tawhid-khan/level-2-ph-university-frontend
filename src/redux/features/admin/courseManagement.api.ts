@@ -26,12 +26,13 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
     }),
 
-    // getSpecificStudentUser: builder.query({
-    //   query: (name) => ({
-    //     url: `/students/${name}`,
-    //     method: "GET",
-    //   }),
-    // }),
+    updateSemesterRegistration: builder.mutation({
+      query: (args) => ({
+        url: `/semester-registerations/${args.id}`,
+        method: "PATCH",
+        body:args.data
+      }),
+    }),
 
     addSemesterRegistration: builder.mutation({
       query: (data) => ({
@@ -41,14 +42,10 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
-    
-   
-   
-
-   
   }),
 });
 
 export const {useAddSemesterRegistrationMutation,
+    useUpdateSemesterRegistrationMutation,
     useGetRegisteredSemesterDataQuery,
 }=courseManagementApi

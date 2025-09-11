@@ -1,7 +1,7 @@
 import { Button, Dropdown, Table, Tag, type MenuProps, type TableColumnsType, type TableProps } from "antd";
 import { useState } from "react";
 import type { TQueryParams, TRegisteredSemester } from "../../../types";
-import { useGetRegisteredSemesterDataQuery } from "../../../redux/features/admin/courseManagement.api";
+import { useGetRegisteredSemesterDataQuery, useUpdateSemesterRegistrationMutation } from "../../../redux/features/admin/courseManagement.api";
 import moment from "moment";
 
 
@@ -28,9 +28,12 @@ const items: MenuProps['items'] = [
 ];
 
 const RegisteredSemester=()=>{
+    const [registeredId,setRegisteredId]=useState('')
 
-   const [params,setParams]=useState<TQueryParams[]>([])
+   const [params,setParams]=useState<TQueryParams[]>([]) ;
+
     const  {data:semesterData,isLoading,isFetching}=useGetRegisteredSemesterDataQuery(params)
+    const [updateRegistrationStatus,{isLoading:ULoading}]=useUpdateSemesterRegistrationMutation()
 
 //     const paramsYear=new Date().getFullYear()
     
@@ -43,8 +46,14 @@ const RegisteredSemester=()=>{
      status:status,
     }))
 
-const handleStatusDropdown=(data)=>{
-    console.log(data)
+const handleStatusDropdown=async(data)=>{
+   
+    const updateData={
+        id:registeredId,
+        data:{ status :data.key}
+    }
+    const res=await updateRegistrationStatus(updateData)
+    console.log({res})
 }
 
     const menuProps = {
@@ -87,10 +96,10 @@ const handleStatusDropdown=(data)=>{
   {
     title: 'Action',
     key: 'x',
-    render:()=>{
+    render:(item)=>{
       return <div>
-        <Dropdown menu={menuProps} >
-        <Button>update</Button>
+        <Dropdown menu={menuProps} trigger={['click']} >
+        <Button onClick={()=>setRegisteredId(item.key)}>update</Button>
         </Dropdown>
       </div>
     }    
@@ -111,11 +120,14 @@ const onChange: TableProps<TTableData>['onChange'] = (_pagination, filters, _sor
   }
 };
 
-    if(isLoading){
-      return (<div> <h1>loading ---------------</h1> </div>)
+    if(isLoading || ULoading ){
+      return ( <div> <h1>loading ---------------</h1> </div>)
     }
     return <div>
-   <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />
+   <Table loading={isFetching} 
+   columns={columns} 
+   dataSource={tableData} 
+   onChange={onChange} />
     </div>
 }
 export default RegisteredSemester ;
