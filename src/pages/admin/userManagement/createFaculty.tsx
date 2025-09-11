@@ -60,7 +60,8 @@ const CreateFaculty=()=>{
       return <div><h1>loading -------------</h1></div>
     }
 
-    return <div><PHForm onSubmit={onSubmit}>
+    return <div>
+      <PHForm onSubmit={onSubmit}>
             <Divider> Personal information </Divider>
             <Row gutter={8}>
               <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>

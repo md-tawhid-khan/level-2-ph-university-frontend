@@ -5,7 +5,14 @@ import AcademicSemester from "../pages/admin/academicManagement/academicSemester
 import CreateAcademicDepartment from "../pages/admin/academicManagement/createAcademicDepartment"
 import CreateAcademicFaculty from "../pages/admin/academicManagement/createAcademicFaculty"
 import CreateAcademicSemester from "../pages/admin/academicManagement/createAcademicSemester"
+import Courses from "../pages/admin/courseManagement/courses"
+import CreateCourse from "../pages/admin/courseManagement/createCourse"
+import OtherCourse from "../pages/admin/courseManagement/otherCourse"
+import RegisteredSemester from "../pages/admin/courseManagement/registeredSemester"
+import SemesterRegistration from "../pages/admin/courseManagement/semesterRegistration"
 import AdminDashboard from "../pages/admin/userManagement/adminDashboard"
+import AdminData from "../pages/admin/userManagement/adminData"
+import { AdminDetails } from "../pages/admin/userManagement/adminDetails"
 import CreateAdmin from "../pages/admin/userManagement/createAdmin"
 import CreateFaculty from "../pages/admin/userManagement/createFaculty"
 import CreateStudent from "../pages/admin/userManagement/createStudent"
@@ -13,6 +20,7 @@ import FacultyData from "../pages/admin/userManagement/facultyData"
 import { FacultyDetails } from "../pages/admin/userManagement/facultyDetails"
 import StudentData from "../pages/admin/userManagement/studentData"
 import { StudentDetails } from "../pages/admin/userManagement/studentDetails"
+import OfferedCourse from "../pages/faculty/offeredCourse"
 
 
 
@@ -82,6 +90,15 @@ export const adminPaths=[
             element:<CreateAdmin/>
         },
           {
+        name:"Admin Data",
+        path:'admin-data',
+        element:<AdminData/>
+    },
+    {
+        path:'admin-data/:adminId',
+        element:<AdminDetails/>
+    },
+          {
             name:"Create Faculty",
         path:'create-faculty',
         element:<CreateFaculty/>
@@ -96,6 +113,42 @@ export const adminPaths=[
         element:<FacultyDetails/>
     },
     
+    ]
+  },
+
+  {
+    name:"Course Management",
+    children:[
+      {
+        name:"Semester Registration",
+        path:"semester-registration",
+        element:<SemesterRegistration/>
+      },
+      {
+        name:"Registered Semester",
+        path:"registered-semester",
+        element:<RegisteredSemester/>
+      },
+      {
+        name:"Create Course",
+        path:"create-course",
+        element:<CreateCourse/>
+      },
+      {
+        name:"Courses",
+        path:"courses",
+        element:<Courses/>
+      },
+      {
+        name:"Other Course",
+        path:"other-course",
+        element:<OtherCourse/>
+      },
+      {
+        name:"Offered Course",
+        path:"offered-course",
+        element:<OfferedCourse/>
+      },
     ]
   }
 ]

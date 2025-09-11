@@ -1,95 +1,138 @@
-import type { TFaculty, TQueryParams, TResponseRedux, TStudent } from "../../../types";
+import type {
+  TAdmin,
+  TFaculty,
+  TQueryParams,
+  TResponseRedux,
+  TStudent,
+} from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
-const userManagementApi=baseApi.injectEndpoints({
-    endpoints:(builder)=>({
-        getStudentData:builder.query({
-               query:(args)=>{
-        
-                 const params=new URLSearchParams()
-                 if(args){
-                    args.forEach((item:TQueryParams) => {
-                        params.append(item.name,item.value as string)
-                    });        
-                 }
-        
-                return {
-                     url:"/students/all-students",
-                  method:"GET",
-                  params: params
-                 }
-               
-               },
-               transformResponse:(response:TResponseRedux<TStudent[]>)=>{
-                   
-                    return {
-                       data:response.data,
-                       meta:response.meta,
-                    }
-                   }
-               }),
+const userManagementApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getStudentData: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string);
+          });
+        }
 
-        getSpecificStudentUser:builder.query({
-            query:(name)=>({
-              url:`/students/${name}`,
-              method:'GET',
-            })
-        }),
+        return {
+          url: "/students/all-students",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TStudent[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
 
-        addStudentUser:builder.mutation({
-            query:(data)=>({
-              url:'/users/create-user-student',
-              method:'POST',
-              body:data
-            })
-        }),
+    getSpecificStudentUser: builder.query({
+      query: (name) => ({
+        url: `/students/${name}`,
+        method: "GET",
+      }),
+    }),
 
-        getFacultyData:builder.query({
-               query:(args)=>{
-        
-                 const params=new URLSearchParams()
-                 if(args){
-                    args.forEach((item:TQueryParams) => {
-                        params.append(item.name,item.value as string)
-                    });        
-                 }
-        
-                return {
-                     url:"/faculties",
-                  method:"GET",
-                  params: params
-                 }
-               
-               },
-               transformResponse:(response:TResponseRedux<TFaculty[]>)=>{
-                   
-                    return {
-                       data:response.data,
-                       meta:response.meta,
-                    }
-                   }
-               }),
+    addStudentUser: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-user-student",
+        method: "POST",
+        body: data,
+      }),
+    }),
 
-                getSpecificFacultyUser:builder.query({
-            query:(name)=>({
-              url:`/faculties/${name}`,
-              method:'GET',
-            })
-        }),
+    getFacultyData: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string);
+          });
+        }
 
-        addFacultyUser:builder.mutation({
-            query:(data)=>({
-              url:'/users/create-user-faculty',
-              method:'POST',
-              body:data
-            })
-        }),
-    })
-})
+        return {
+          url: "/faculties",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TFaculty[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
 
-export const {useGetStudentDataQuery,
-    useGetSpecificStudentUserQuery,
-    useAddStudentUserMutation,
-    useGetFacultyDataQuery,
-    useGetSpecificFacultyUserQuery,
-  useAddFacultyUserMutation}=userManagementApi
+    getSpecificFacultyUser: builder.query({
+      query: (name) => ({
+        url: `/faculties/${name}`,
+        method: "GET",
+      }),
+    }),
+
+    addFacultyUser: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-user-faculty",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    getAdminData: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+
+        return {
+          url: "/admins",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAdmin[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
+    getSpecificAdminUser: builder.query({
+      query: (name) => ({
+        url: `/admins/${name}`,
+        method: "GET",
+      }),
+    }),
+
+    addAdminUser: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-user-admin",
+        method: "POST",
+        body: data,
+      }),
+    }),
+  }),
+});
+
+export const {
+  useGetStudentDataQuery,
+  useGetSpecificStudentUserQuery,
+  useAddStudentUserMutation,
+  useGetFacultyDataQuery,
+  useGetSpecificFacultyUserQuery,
+  useAddFacultyUserMutation,
+  useGetAdminDataQuery,
+  useGetSpecificAdminUserQuery,
+  useAddAdminUserMutation,
+} = userManagementApi;
