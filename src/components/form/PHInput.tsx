@@ -5,9 +5,10 @@ type TInputesType={
     type:string,
     name:string,
     label?:string
+    disabled?:boolean
 }
 
-const PHInput=({type,name , label}:TInputesType)=>{
+const PHInput=({type,name , label,disabled}:TInputesType)=>{
     
 
     return <div style={{marginBottom:'20px'}}>
@@ -16,7 +17,7 @@ const PHInput=({type,name , label}:TInputesType)=>{
         name={name}
         render={({ field }) => (
             <Form.Item label={label} >
-            <Input {...field} type={type} id={name} size="large" />
+            <Input {...field} disabled={disabled} type={type} id={name} size="large" />
              </Form.Item>
         )}/>
                       

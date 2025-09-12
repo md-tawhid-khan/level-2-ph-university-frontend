@@ -127,11 +127,11 @@ const AssignFacultyModal=({courseId})=>{
         assign faculty
       </Button>
       <Modal
+      footer={null} 
         title="assign faculty"
         closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
-        onCancel={handleCancel}
-        
+        onCancel={handleCancel}       
       >
         <PHForm onSubmit={onSubmit}>
             <PHSelect mode="multiple" label="faculty" name="faculties" options={facultyDataOptions} ></PHSelect>
