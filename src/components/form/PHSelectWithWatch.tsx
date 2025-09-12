@@ -1,5 +1,5 @@
 import { Form, Select, } from "antd"
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Controller, useFormContext, useWatch,  } from "react-hook-form";
 
 type TPHSelect={
@@ -8,6 +8,7 @@ type TPHSelect={
     options?:{value:string,label:string,disabled?:boolean}[];
     disabled?:boolean ;
     mode?:'multiple'| undefined ;
+    onChangeValue:React.Dispatch<React.SetStateAction<string>>  ;
    
 }
 

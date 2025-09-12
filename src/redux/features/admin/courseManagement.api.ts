@@ -87,7 +87,7 @@ const courseManagementApi = baseApi.injectEndpoints({
      
     }),
 
-    //---------------
+    
      getAssignFacultyCourses: builder.query({
       query: (courseId) => {
         return {
@@ -103,7 +103,13 @@ const courseManagementApi = baseApi.injectEndpoints({
       },
     }),
 
-
+addOfferedCourse: builder.mutation({
+      query: (data) => ({
+        url: "/offered-course/create-offered-course",
+        method: "POST",
+        body: data,
+      }),
+    }),
 
   }),
 });
@@ -115,4 +121,5 @@ export const {useAddSemesterRegistrationMutation,
     useAddCourseMutation,
     useAddFacultyInCourseMutation,
     useGetAssignFacultyCoursesQuery,
+    useAddOfferedCourseMutation,
 }=courseManagementApi
