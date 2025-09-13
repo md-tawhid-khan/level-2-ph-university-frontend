@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Layout, Menu } from "antd";
 import { sideberItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routers/adminRouters";
 import { FacultyPaths } from "../../routers/facultyRouters";
 import { studentPaths } from "../../routers/studentRouters";
 import { useAppSelector } from "../../redux/hook";
-import { selectCurrentUser, type TUser } from "../../redux/features/auth/authSlice";
+import {  selectCurrentToken,  type TUser,   } from "../../redux/features/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
+
 
 const {  Sider } = Layout;
+
 
 export const Sidebar=()=>{
 
@@ -16,12 +20,18 @@ export const Sidebar=()=>{
       STUDENT:"student"
    }
 
-   const {role}=useAppSelector(selectCurrentUser) as TUser
-      
+const token=useAppSelector(selectCurrentToken)
 
-   let sidebarItems ;
 
-   switch (role) {
+let user ;
+if(token){
+    user=verifyToken(token)
+}
+ 
+
+   let sidebarItems:any ;
+
+   switch ((user as TUser)!.role)  {
       case userRole.ADMIN:
          sidebarItems=sideberItemsGenerator(adminPaths,userRole.ADMIN)
          break;
@@ -36,6 +46,7 @@ export const Sidebar=()=>{
          break;
    }
 
+   
 
    return <Sider
         breakpoint="lg"

@@ -8,6 +8,7 @@ import {  adminPaths} from "./adminRouters";
 import routeGenaretor from "../utils/routeGenerator";
 import { FacultyPaths } from "./facultyRouters";
 import { studentPaths } from "./studentRouters";
+import { ProtectedRoute } from "../components/layout/protectedRoute";
 
 
 
@@ -33,17 +34,17 @@ import { studentPaths } from "./studentRouters";
  },
     {
     path:'/admin',
-    element:<App/>,
+    element:<ProtectedRoute role="admin"><App/></ProtectedRoute>,
     children:routeGenaretor(adminPaths)
  },
     {
     path:'/faculty',
-    element:<App/>,
+    element:<ProtectedRoute role="faculty"><App/></ProtectedRoute>,
     children:routeGenaretor(FacultyPaths)
  },
     {
     path:'/student',
-    element:<App/>,
+    element:<ProtectedRoute role="student"><App/></ProtectedRoute>,
     children:routeGenaretor(studentPaths)
  },
  {

@@ -12,7 +12,7 @@ export type TSiderItem={
 } | undefined
 
  export type TUserRouter={
-    name:string,
+    name?:string,
     path?:string,
     element?:ReactNode,
     children?:TUserRouter[]

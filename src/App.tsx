@@ -9,7 +9,7 @@ function App() {
 
   return (<>
   <div>
-    <ProtectedRoute>
+    <ProtectedRoute role={undefined}>
     <MainLayout/>
     </ProtectedRoute>
     </div>
