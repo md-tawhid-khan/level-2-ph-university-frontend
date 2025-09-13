@@ -1,4 +1,4 @@
-import { useForm, type SubmitHandler } from "react-hook-form"
+import {  type FieldValues, type SubmitHandler } from "react-hook-form"
 import { useLoginMutation } from "../redux/features/auth/authApi"
 import { useAppDispatch } from "../redux/hook"
 import { setUser, type TUser } from "../redux/features/auth/authSlice"
@@ -9,10 +9,7 @@ import { PHForm } from "../components/form/PHForm"
 import PHInput from "../components/form/PHInput"
 import { Row } from "antd"
 
-type Inputs = {
-  id: string
-  password: string
-}
+
 
 const Login=()=>{
 
@@ -30,7 +27,7 @@ const Login=()=>{
 //   console.log(data)
 //   console.log(error)
 
-   const onSubmit: SubmitHandler<Inputs> =async (data) => {
+   const onSubmit: SubmitHandler<FieldValues> =async (data) => {
     
    const toastId= toast.loading("loading -------------")
 
@@ -41,12 +38,18 @@ const Login=()=>{
     try {
       const res = await login(userInfo).unwrap()
 
+    
+
      const decode=jwtDecode(res.data.accessToken) as TUser
      
      dispatch(setUser({user:decode,token:res.data.accessToken})) 
+
+       if(res.data.needsPasswordChanges){
+         navigate('/change-password')
+      } else {
+            navigate(`/${decode.role}/dashboard`)
+      }
      
-     navigate(`/${decode.role}/dashboard`)
-   
      toast.success("successful to log in",{id:toastId,duration:2000})
       
     } catch (error) {

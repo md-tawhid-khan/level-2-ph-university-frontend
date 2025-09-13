@@ -9,6 +9,7 @@ import routeGenaretor from "../utils/routeGenerator";
 import { FacultyPaths } from "./facultyRouters";
 import { studentPaths } from "./studentRouters";
 import { ProtectedRoute } from "../components/layout/protectedRoute";
+import ChangePassword from "../pages/changePassword";
 
 
 
@@ -50,6 +51,10 @@ import { ProtectedRoute } from "../components/layout/protectedRoute";
  {
     path:'/login',
     element:<Login/>
+ },
+ {
+    path:'/change-password',
+    element:<ChangePassword/>
  },
  {
     path:'/register',
