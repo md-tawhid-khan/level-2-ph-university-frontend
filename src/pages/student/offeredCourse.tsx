@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Col, Row } from "antd";
-import { useGetMyOfferedCourseDataQuery } from "../../redux/features/admin/courseManagement.api";
+import { useEnrolledOfferedCourseMutation, useGetMyOfferedCourseDataQuery } from "../../redux/features/student/studentCourse.api";
+import { toast } from "sonner";
 
 
 type TCourses={
@@ -8,7 +9,10 @@ type TCourses={
 }
 
 export const OfferedCourse = () => {
-  const { data: getMyOffered } = useGetMyOfferedCourseDataQuery(undefined);
+  const { data: getMyOffered, isLoading:OLoading } = useGetMyOfferedCourseDataQuery(undefined);
+
+const [addEnrolledCourse,{isLoading:ELoading}]=useEnrolledOfferedCourseMutation()
+
   const singleObject = getMyOffered?.data?.reduce((acc:TCourses, item) => {
     const key = item.course.title;
     acc[key] = { coursTitle: key, sections: [] };
@@ -26,17 +30,42 @@ export const OfferedCourse = () => {
 
   const modifiedData = Object.values(singleObject ? singleObject : {});
 
+  const handleEnroll=async(id)=>{
+    const enrolledData={
+        offeredCourse:id
+    }
+
+    try {
+        const res=await addEnrolledCourse(enrolledData)
+        if(res.error){
+            toast.error(res.error.data.message)
+        }
+        toast.success("successfully enrolled in this course")
+    } catch (error) {
+        toast.error("failed to enrolled  this course")
+    }
+    
+  }
+
+  if(OLoading || ELoading){
+    return (
+        <div><h1> loading data ----------- </h1>
+        </div>
+    )
+  }
+
   return (
     <Row >
       {
-        modifiedData.map(item=>{
+        modifiedData.map(dataItem=>{
+            
             return <Col span={24}>
             <div>
-                 <h1>{item.coursTitle}</h1>
+                 <h1>{dataItem.coursTitle}</h1>
             </div>
             <div>
                 {
-                    item.sections.map(section=>{
+                    dataItem.sections.map(section=>{
                         return<Row 
                         justify='space-between'
                         align='middle'>
@@ -50,7 +79,7 @@ export const OfferedCourse = () => {
                             }</Col>
                             <Col span={5}>start time : {section.startTime}</Col>
                             <Col span={5}>end time : {section.endTime}</Col>
-                            <Col span={4}><Button >enrolled</Button></Col>                           
+                            <Col span={4}><Button onClick={()=>handleEnroll(section._id)} >enrolled</Button></Col>                           
                         </Row>
                     })
                 }

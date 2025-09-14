@@ -126,15 +126,6 @@ addOfferedCourse: builder.mutation({
       },
     }),
 
-    getMyOfferedCourseData:builder.query({
-        query:()=>{
-            return {
-                url:'/offered-course/my-offered-courses',
-                method:'GET'
-            }
-        }
-      })
-
   }),
 });
 
