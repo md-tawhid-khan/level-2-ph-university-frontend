@@ -41,9 +41,20 @@ const CreateStudent = () => {
     const formData = new FormData();
     formData?.append("data", JSON.stringify(studentData));
     formData?.append('file',data.profileImage)
-    
-    const res = await addStudent(formData);
+
+    try {
+      const res = await addStudent(formData);
     console.log({ res });
+    if(res.error){
+      console.log(res.error.data.message)
+    }else{
+      console.log(res.data)
+    }
+    } catch (error) {
+      console.log(error)
+    }
+    
+    
 
     //! this is development
     // just for checking

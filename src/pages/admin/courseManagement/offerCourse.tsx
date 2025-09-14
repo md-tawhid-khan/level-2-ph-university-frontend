@@ -9,6 +9,7 @@ import PHSelect from "../../../components/form/PHSelect"
 import { useGetAcademicDepartmentQuery, useGetAcademicFacultyQuery,  } from "../../../redux/features/admin/academicManagement.api"
 import PHTimePicker from "../../../components/form/PHTimePicker"
 import moment from "moment"
+import { toast } from "sonner"
 
 const OfferCourse=()=>{
 
@@ -105,9 +106,19 @@ const daysOptions=days.map(item=>({
         endTime:data.endTime
 
        }
-       console.log({OfferedCourseData})
+       
+       try {
         const res=await addOfferedCourse(OfferedCourseData)
-        console.log({res})
+        if(res.error){
+            toast.error(res?.error?.data?.message,)
+        }else{
+            toast.success('successfully create offered course')
+        }
+      
+       } catch (error) {
+        toast.error("failed to crate offered course")
+       }
+        
     }
 
     if(CLoading || isLoading ){

@@ -14,7 +14,7 @@ export const ProtectedRoute=({children,role}:TProtectedRoute)=>{
  const token=useAppSelector(selectCurrentToken)
  const dispatch = useAppDispatch();
 
- console.log(role)
+//  console.log(role)
  
  if(!token){
   return  <Navigate to="/login" replace={true}/>
