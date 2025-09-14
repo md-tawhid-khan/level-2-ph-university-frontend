@@ -8,8 +8,11 @@ const studentCourseApi=baseApi.injectEndpoints({
                 url:'/offered-course/my-offered-courses',
                 method:'GET'
             }
-        }
+        },
+        providesTags:["offeredCourse"]
       }),
+
+
 
        enrolledOfferedCourse:builder.mutation({
         query:(data)=>{
@@ -19,12 +22,27 @@ const studentCourseApi=baseApi.injectEndpoints({
                 method:'POST',
                 body:data
             }
-        }
-      })
+        },
+        invalidatesTags:['offeredCourse']
+      }),
+
+
+      
+        getAllEnrolledCourse:builder.query({
+        query:()=>{
+            return {
+                url:'/enrolledCourse/my-enrolled-course',
+                method:'GET'
+            }
+        },
+      
+      }),
 
     })
 })
 
-export const {useGetMyOfferedCourseDataQuery,
+export const {
+    useGetMyOfferedCourseDataQuery,
     useEnrolledOfferedCourseMutation,
-}=studentCourseApi
+    useGetAllEnrolledCourseQuery,
+}=studentCourseApi ;

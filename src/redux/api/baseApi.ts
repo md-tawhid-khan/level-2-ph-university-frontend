@@ -60,6 +60,6 @@ const baseQuery=fetchBaseQuery({
 export const baseApi=createApi({
     reducerPath:"baseApi",
     baseQuery:baseQueryWithRefreshToken,
-    tagTypes:['registerSemester','course'],
+    tagTypes:['registerSemester','course','offeredCourse'],
     endpoints:()=>({})
 })

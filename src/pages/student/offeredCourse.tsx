@@ -13,6 +13,9 @@ export const OfferedCourse = () => {
 
 const [addEnrolledCourse,{isLoading:ELoading}]=useEnrolledOfferedCourseMutation()
 
+
+
+
   const singleObject = getMyOffered?.data?.reduce((acc:TCourses, item) => {
     const key = item.course.title;
     acc[key] = { coursTitle: key, sections: [] };
@@ -29,6 +32,7 @@ const [addEnrolledCourse,{isLoading:ELoading}]=useEnrolledOfferedCourseMutation(
   }, {});
 
   const modifiedData = Object.values(singleObject ? singleObject : {});
+
 
   const handleEnroll=async(id)=>{
     const enrolledData={
@@ -52,6 +56,9 @@ const [addEnrolledCourse,{isLoading:ELoading}]=useEnrolledOfferedCourseMutation(
         <div><h1> loading data ----------- </h1>
         </div>
     )
+  }
+  if(!modifiedData.length){
+    return <div><p> No availablle data</p></div>
   }
 
   return (
