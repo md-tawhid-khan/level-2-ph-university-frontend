@@ -17,7 +17,7 @@ const Courses=()=>{
   
         const {data:getCourseData,isFetching,isLoading}=useGetAllCoursesQuery(params)
 
-         console.log(getCourseData)
+     
        
          const tableData = getCourseData?.data?.map(({_id,title,code})=>({
               key:_id,

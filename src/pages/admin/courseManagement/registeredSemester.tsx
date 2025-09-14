@@ -40,7 +40,7 @@ const RegisteredSemester=()=>{
 
    const tableData = semesterData?.data?.map(({_id,startDate,endDate,status,academicSemester})=>({
      key:_id,
-     name:academicSemester.name,
+     name:`${academicSemester.name} ${academicSemester.year}`,
      startDate:moment(new Date(startDate)).format('MMMM') ,
      endDate:moment(new Date(endDate)).format('MMMM'),
      status:status,

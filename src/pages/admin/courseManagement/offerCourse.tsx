@@ -8,13 +8,14 @@ import PHSelect from "../../../components/form/PHSelect"
 
 import { useGetAcademicDepartmentQuery, useGetAcademicFacultyQuery,  } from "../../../redux/features/admin/academicManagement.api"
 import PHTimePicker from "../../../components/form/PHTimePicker"
+import moment from "moment"
 
 const OfferCourse=()=>{
 
     const [id,setId]=useState('')
     const [facultyId,setFacultyId]=useState('')
 
-    const [addOfferedCourse]=useAddOfferedCourseMutation()
+    const [addOfferedCourse,{isLoading}]=useAddOfferedCourseMutation()
 
    
     const academicDepartmentParams=[{name:'academicFaculty',value:facultyId || ''}] 
@@ -61,7 +62,7 @@ const {data:academicSemesterData}=useGetRegisteredSemesterDataQuery(undefined)
 // console.log({academicSemesterData})
   
     const academicSemesterDataOptions=academicSemesterData?.data?.map(item=>({
-           label: `${item.status} `,
+           label: `${item?.academicSemester?.name} ${item?.academicSemester?.year} `,
           value: item._id,
     }
 ))
@@ -95,16 +96,21 @@ const daysOptions=days.map(item=>({
 //submit function ------------
 
     const onSubmit=async(data)=>{
+        
      const OfferedCourseData = {
         ...data,
         maxCapacity:Number(data.maxCapacity),
-        section:Number(data.section)
+        section:Number(data.section),      
+        startTime:data.startTime,
+        endTime:data.endTime
+
        }
+       console.log({OfferedCourseData})
         const res=await addOfferedCourse(OfferedCourseData)
         console.log({res})
     }
 
-    if(CLoading ){
+    if(CLoading || isLoading ){
         return (<div>
             <h1>loading --------</h1>
         </div>)

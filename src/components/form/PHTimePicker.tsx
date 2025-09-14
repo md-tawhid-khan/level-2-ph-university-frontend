@@ -1,4 +1,5 @@
 import { Form, TimePicker } from "antd"
+import dayjs from "dayjs";
 import { Controller, useFormContext } from "react-hook-form"
 
 type TTimePicker={
@@ -8,6 +9,7 @@ type TTimePicker={
 
 const PHTimePicker=({name,label}:TTimePicker)=>{
     const {control}=useFormContext()
+
     return (
         <div style={{marginBottom:'10px'}}>
             <Controller
@@ -19,6 +21,8 @@ const PHTimePicker=({name,label}:TTimePicker)=>{
                 <TimePicker
                 {...field}
                 size="large"
+                value={field.value ? dayjs(field.value, "HH:mm") : null}
+                onChange={(time) => field.onChange(time ? time.format("HH:mm") : "")} 
                 style={{width:'100%'}}
                 format="HH:mm"
                 />

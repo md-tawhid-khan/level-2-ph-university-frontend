@@ -111,6 +111,21 @@ addOfferedCourse: builder.mutation({
       }),
     }),
 
+    getAllOfferedCourses: builder.query({
+      query: () => {
+        return {
+          url: '/offered-course',
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<any>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
   }),
 });
 
@@ -122,4 +137,5 @@ export const {useAddSemesterRegistrationMutation,
     useAddFacultyInCourseMutation,
     useGetAssignFacultyCoursesQuery,
     useAddOfferedCourseMutation,
+    useGetAllOfferedCoursesQuery,
 }=courseManagementApi
