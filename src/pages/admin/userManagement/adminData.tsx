@@ -18,7 +18,7 @@ const AdminData=()=>{
             {name:"page",value:page},
             {name:"sort",value:'id'} ,...params] 
         )
-console.log(adminData)
+// console.log(adminData)
 
    const tableData = adminData?.data!.map(({_id,id, fullName, email, contactNo})=>({
      key:_id,

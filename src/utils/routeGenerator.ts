@@ -21,6 +21,13 @@ import type { TRouter, TUserRouter } from "../types"
             })
         }
 
+        if(item.path && item.element){
+            acc.push({
+                path:item.path,
+                element:item.element
+            })
+        }
+
         return acc
       },[] ) 
      
