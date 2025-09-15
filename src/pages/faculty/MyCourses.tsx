@@ -21,7 +21,7 @@ const MyCourses=()=>{
 
     const onSubmit =(data)=>{
         navigate(`/faculty/courses/${data?.semesterRegistration}/${data?.course}`)
-        console.log({data})
+        // console.log({data})
     }
 
     if(isLoading){

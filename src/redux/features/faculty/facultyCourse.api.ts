@@ -49,27 +49,24 @@ const facultyCourseApi=baseApi.injectEndpoints({
              },
            }),
 
-
-
-    //    enrolledOfferedCourse:builder.mutation({
-    //     query:(data)=>{
+       addStudentMarks:builder.mutation({
+        query:(data)=>{
            
-    //         return {
-    //             url:'/enrolledCourse/create-enrolled-course',
-    //             method:'POST',
-    //             body:data
-    //         }
-    //     },
-    //     invalidatesTags:['offeredCourse']
-    //   }),
+            return {
+                url:'/enrolledCourse/update-enrolled-course-marks',
+                method:'PATCH',
+                body:data
+            }
+        },
 
+      }),
 
-      
-        
+ 
     })
 })
 
 export const {
    useGetCoursesDataQuery,
    useGetAllStudentInCourseDataQuery,
+   useAddStudentMarksMutation,
 }=facultyCourseApi ;
